@@ -29,7 +29,7 @@ uvicorn example.server:app --reload
 docker build -it example .
 docker run --rm -it example
 ```
-<!--
+
 1. Package Management APIs
 Basic Operations
 Endpoint	                Method	Description	                         Parameters	                Returns
@@ -66,4 +66,4 @@ curl -X POST http://localhost:8000/api/v1/packages \
 Check its status:
 curl -X GET http://localhost:8000/api/v1/package/1 \
   -H "Authorization: Token abc123..."
-  by 班瑞莲 -->
+ <!-- by 班瑞莲 -->
