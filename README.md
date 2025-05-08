@@ -29,3 +29,14 @@ uvicorn example.server:app --reload
 docker build -it example .
 docker run --rm -it example
 ```
+## 术语表截图
+![术语表文件内容](ai_usage_screenshots/2205308010326_1.ccccccccc)  
+<!-- by 黄小丽 -->
+
+## API 文档界面
+![FastAPI Swagger UI](ai_usage_screenshots/2205308010326_2.png)  
+<!-- by 黄小丽 -->
+
+## API 文档界面
+![FastAPI Swagger UI](ai_usage_screenshots/2205308010326_3.png)  
+<!-- by 黄小丽 -->
