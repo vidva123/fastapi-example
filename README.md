@@ -17,3 +17,30 @@ A production-ready microservice for software package lifecycle management, built
 **Async Worker** Background nix-build integration<br>• Automatic status transitions        
 **Security** Middleware-based validation<br>• SQL injection protection                 
 <!-- by 周毅鸿 -->
+### Development Setup 
+### Installation Methods
+#### Method 1: Nix Shell 
+```bash
+nix-shell  # Auto-configures Python 3.11 + dependencies
+pytest -v  # Run test suite (10 test cases)
+
+#### Method 2:
+# Create and activate virtual environment
+python3 -m venv venv
+source venv/bin/activate
+
+# Install dependencies
+pip3 install -r requirements.txt
+pip3 install -e . 
+
+# Verify installation
+pytest -v tests/  
+
+example-init  # Creates SQLite database with schema
+uvicorn example.server:app --reload  # Auto-reload for development
+# Create new package
+POST /api/v1/packages {"name": "security-patch", "version": "2.1.0"}
+# Activate package
+$ pkgctl activate 1 --token $API_KEY
+> Success: Activated package v2.1.0
+<!-- by 周毅鸿 -->
