@@ -1,5 +1,5 @@
-(<!--by 杨玉华 -->)
-### 方法1：使用Nix环境
+
+### 方法1：使用Nix环境  !--by 杨玉华 --
 nix-shell  # 自动配置Python 3.11开发环境及所有依赖项  
 pytest -v  # 执行完整测试套件（包含10个测试用例）  
 
@@ -308,7 +308,7 @@ from example.server import app
 client = TestClient(app)
 ```
 
-### 测试最佳实践
+### 测试最佳实践 
 1. 每个测试文件必须初始化全新的数据库实例
 2. 使用unittest.mock模拟外部依赖
 3. 需包含成功和失败两种测试场景
@@ -320,6 +320,5 @@ client = TestClient(app)
 9. 明确标注测试依赖项
 10. 对关键路径包含性能基准测试
 
-(<!--by 杨玉华 -->)
 
 
