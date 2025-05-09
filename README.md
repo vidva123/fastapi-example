@@ -1,31 +1,23 @@
-# A FastAPI Example
+## Testing <!-- by 张佳琦（ho0oope） -->
 
-## Development
+### Test Architecture
+The project implements a comprehensive testing strategy with:
+- **Unit Tests**: Isolated tests for individual components
+- **Integration Tests**: End-to-end API endpoint testing
+- **Mock Testing**: For external dependencies and async operations
+- **Database Tests**: With isolated test database configuration
 
-The development environment can be setup in a few ways.
+### Test Configuration
+Tests use a dedicated SQLite database configured in each test file:
+```python
+import os
+os.environ['DATABASE_URL'] = 'sqlite:///./test.db'
+from example.models import initialize
+initialize(drop_all=True)  # Ensures clean state for each test
 
-```sh
-nix-shell
-pytest -v
-```
-```sh
-python3 -m venv venv
-source venv/bin/activate
-pip3 install -r requirements.txt
-pip3 install -e .
-pytest -v
-```
-
-Running the server.
-
-```sh
-example-init  # initialize database
-uvicorn example.server:app --reload
-```
-
-## Docker build
-
-```sh
-docker build -it example .
-docker run --rm -it example
-```
+Test Best Practices
+1.Each test file initializes a clean database
+2.Mock external dependencies to ensure test isolation
+3.Include both positive and negative test cases
+4.Test all API response status codes
+5.Verify complete response payload structure
