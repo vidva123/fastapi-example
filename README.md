@@ -52,3 +52,45 @@ npm run dev
 ```
 
 The service will run at `http://localhost:8000`
+
+###   Testing Guide
+
+# Test Setup
+Tests automatically use an isolated test database (test.db).
+No manual configuration required.
+
+# Run Tests
+```bash
+# Execute all tests
+pytest
+
+# Running Specific Test Modules
+pytest test_packages.py
+pytest test_tokens.py
+pytest test_hello.py
+
+# Generating Test Coverage Reports
+pip install pytest-cov
+pytest --cov=example --cov-report=html
+```
+
+# Test Categories
+
+# Basic Functionality Tests (test_hello.py)
+Verify the /hello endpoint returns the correct response
+no database dependency
+Package Management Tests (test_packages.py)
+
+# Package Lifecycle Testing：
+Package Creation (/api/v1/packages)
+Package Listing (/api/v1/packages)
+Package Download (/api/v1/package/{id}/download)
+Package Activation (/api/v1/package/{id}/activate)
+Mocking Nix Package Manager in Tests
+
+#  Token Lifecycle Testing (test_tokens.py)
+Testing the Complete Token Lifecycle：
+Token Generation (/api/v1/tokens)
+Token Middleware Validation
+Token  Revocation (/api/v1/token/{id})
+Bulk Expiration (/api/v1/tokens/all)
