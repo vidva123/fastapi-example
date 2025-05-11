@@ -1,3 +1,4 @@
+<!-- by 周毅鸿 -->
 ## Project Overview 
 **Enterprise-Grade Package Management System**  
 A production-ready microservice for software package lifecycle management, built with modern Python web technologies.
@@ -16,7 +17,7 @@ A production-ready microservice for software package lifecycle management, built
 **Package Management** Semantic version validation<br>• Status tracking (created/downloaded/activated) 
 **Async Worker** Background nix-build integration<br>• Automatic status transitions        
 **Security** Middleware-based validation<br>• SQL injection protection                 
-<!-- by 周毅鸿 -->
+
 ### Development Setup 
 ### Installation Methods
 #### Method 1: Nix Shell 
@@ -35,7 +36,16 @@ pip3 install -e .
 
 # Verify installation
 pytest -v tests/  
+example-init  # Creates SQLite database with schema
+uvicorn example.server:app --reload  # Auto-reload for development
+# Create new package
+POST /api/v1/packages {"name": "security-patch", "version": "2.1.0"}
+# Activate package
+$ pkgctl activate 1 --token $API_KEY
+> Success: Activated package v2.1.0
+<!-- by 周毅鸿 -->
 
+<!-- by 班瑞莲 -->
 master
 ```sh
 docker build -it example .
@@ -72,13 +82,54 @@ curl -X GET 'http://api.example.com/v1/tokens' \
   -H 'Authorization: Token your_token_here'
  <!-- by 班瑞莲 -->
  
-=======
-example-init  # Creates SQLite database with schema
-uvicorn example.server:app --reload  # Auto-reload for development
-# Create new package
-POST /api/v1/packages {"name": "security-patch", "version": "2.1.0"}
-# Activate package
-$ pkgctl activate 1 --token $API_KEY
-> Success: Activated package v2.1.0
-<!-- by 周毅鸿 -->
- master
+First get a token:
+curl -X POST http://localhost:8000/api/v1/tokens
+
+Then use it to create a package:
+curl -X POST http://localhost:8000/api/v1/packages \
+  -H "Authorization: Token abc123..." \
+  -H "Content-Type: application/json" \
+  -d '{"name":"demo","version":"1.0.0"}'
+
+Check its status:
+curl -X GET http://localhost:8000/api/v1/package/1 \
+  -H "Authorization: Token abc123..."
+  <-- by 班瑞莲 -->
+  
+ <!-- by 张佳琦 (ho0oope) -->
+### Test Architecture
+The project follows a rigorous testing methodology that includes:
+- **Unit Tests**: Independent validation of individual modules
+- **Integration Tests**: Comprehensive API endpoint validation
+- **Mock Testing**: Simulation of external services and asynchronous processes
+- **Database Tests**: Isolated database operations with clean state management
+- **Security Tests**: Authentication and authorization verification
+
+### Test Configuration
+All tests utilize a dedicated SQLite instance configured as follows:
+```python
+import os
+from example.models import initialize
+
+# Configure test database
+os.environ['DATABASE_URL'] = 'sqlite:///./test_environment.db'
+initialize(drop_all=True)  # Reset database state before each test suite
+
+# Initialize test client
+from starlette.testclient import TestClient
+from example.server import app
+client = TestClient(app)
+
+Test Best Practices
+1.Each test file must initialize a fresh database instance
+2.External dependencies should be mocked using unittest.mock
+3.Include both success and failure test scenarios
+4.Validate all possible HTTP status codes
+5.Verify complete response payload structures
+6.Use descriptive test names following Given-When-Then pattern
+7.Maintain atomic tests with single responsibility
+8.Implement proper test cleanup procedures
+9.Document test dependencies clearly
+10.Include performance benchmarks for critical paths
+<!-- by 张佳琦 (ho0oope) -->
+
