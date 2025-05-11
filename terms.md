@@ -12,3 +12,4 @@
 | endpoint             | API 端点               | 
 | authentication       | 身份验证               | 
 | nix-shell            | nix-shell 环境         | 
+<!-- by 黄小丽 -->
