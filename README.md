@@ -45,9 +45,11 @@ $ pkgctl activate 1 --token $API_KEY
 > Success: Activated package v2.1.0
 <!-- by 周毅鸿 -->
 
-
 <!-- by [罗娟] -->
+# A FastAPI Example
+
 ## Development
+
 The development environment can be setup in a few ways.
 
 ```sh
@@ -93,7 +95,6 @@ docker-compose build
 # Start the service (with hot reload)  
 docker-compose up
 ```
-
 ### Production Deployment
 ```bash
 # Build the optimized image  
@@ -111,8 +112,39 @@ docker run -d \
 | Variable Name | Default Value      | Description         |
 |------------- -|--------------------|---------------------|
 | `APP_ENV`     | `development`      |Runtime environment  |
-| `DB_PATH`     | `./data/app.db`    | Database path       | 
+| `DB_PATH`     | `./data/app.db`    | Database path       |
 
+# Run with hot reload
+docker run -it --rm \
+-p 8000:8000 \
+-v ./data:/app/data \
+-e DATABASE_URL=sqlite:////app/data/dev.db \
+-e APP_ENV=development \
+fastapi-dev
+
+
+Key Deployment Considerations
+
+Authentication & Security:
+
+All API endpoints require token authentication.
+
+Tokens are generated via POST /api/v1/tokens.
+
+Token validation is implemented in middleware (see server.py).
+
+Production Recommendations:
+
+bash
+# Set a strong secret for token generation  
+-e SECRET_KEY=your-strong-secret  
+Additional Notes:
+
+Store secrets securely using environment variables or secret management tools.
+
+Rotate tokens periodically for enhanced security.
+
+Restrict API access to authorized clients only.
 <!-- by [罗娟] -->
 
 <!-- by 班瑞莲 -->
