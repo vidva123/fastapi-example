@@ -192,6 +192,7 @@ uvicorn example.server:app --reload
 docker build -it example .
 docker run --rm -it example
 ```
+
 ```sh
 docker build -it example .
 docker run --rm -it example
@@ -307,6 +308,19 @@ curl -X GET http://localhost:8000/api/v1/package/1 \
   -H "Authorization: Token abc123..."
   <-- by 班瑞莲 -->
   
+  feature/terms-黄小丽
+## 术语表截图
+![术语表文件内容](ai_usage_screenshots/2205308010326_1.png)  
+<!-- by 黄小丽 -->
+
+## API 文档界面
+![FastAPI Swagger UI](ai_usage_screenshots/2205308010326_2.png)  
+<!-- by 黄小丽 -->
+
+## API 文档界面
+![FastAPI Swagger UI](ai_usage_screenshots/2205308010326_3.png)  
+<!-- by 黄小丽 -->
+  
  <!-- by 张佳琦 (ho0oope) -->
 ### Test Architecture
 The project follows a rigorous testing methodology that includes:
@@ -343,3 +357,4 @@ Test Best Practices
 9.Document test dependencies clearly
 10.Include performance benchmarks for critical paths
 <!-- by 张佳琦 (ho0oope) -->
+
