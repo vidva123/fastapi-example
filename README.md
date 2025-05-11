@@ -94,3 +94,26 @@ Token Generation (/api/v1/tokens)
 Token Middleware Validation
 Token  Revocation (/api/v1/token/{id})
 Bulk Expiration (/api/v1/tokens/all)
+
+### Server Startup Process - Development Mode
+
+# Environment Setup
+```bash
+uvicorn example.server:app --reload
+Auto-Reload in Development
+Access Addresses: http://localhost:8000
+
+API Documentation Interface:
+Swagger UI: http://localhost:8000/docs
+ReDoc: http://localhost:8000/redoc
+
+#  Production Mode Deployment
+uvicorn example.server:app --host 0.0.0.0 --port 8000 --workers 4
+
+# Start Command:
+sudo systemctl daemon-reload
+sudo systemctl enable example.service
+sudo systemctl start example.service
+```
+
+<!--桂椰-->>
