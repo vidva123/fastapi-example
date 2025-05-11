@@ -78,6 +78,7 @@ cd fastapi-example
 ```bash
 python -m venv venv
 venv\Scripts\activate  
+
 ```
 ### Install Dependencies
 
@@ -161,7 +162,107 @@ sudo systemctl start example.service
 ```
 <!--by 桂椰-->
 
- <!-- by 班瑞莲 -->
+<!-- by [罗娟] -->
+# A FastAPI Example
+
+## Development
+
+The development environment can be setup in a few ways.
+
+```sh
+nix-shell
+pytest -v
+```
+```sh
+python3 -m venv venv
+source venv/bin/activate
+pip3 install -r requirements.txt
+pip3 install -e .
+pytest -v
+```
+Running the server.
+
+```sh
+example-init  # initialize database
+uvicorn example.server:app --reload
+```
+## Docker build
+
+```sh
+docker build -it example .
+docker run --rm -it example
+```
+```sh
+docker build -it example .
+docker run --rm -it example
+```
+
+## Docker Deployment
+
+### Development Mode
+```bash
+# Build the image  
+docker-compose build
+
+# Start the service (with hot reload)  
+docker-compose up
+```
+### Production Deployment
+```bash
+# Build the optimized image  
+docker build -t fastapi-prod .
+
+# Run the container  
+docker run -d \
+  -p 8000:8000 \
+  -v ./data:/app/data \
+  -e APP_ENV=production \
+  fastapi-prod
+```
+
+### Environment Variables
+| Variable Name | Default Value      | Description         |
+|------------- -|--------------------|---------------------|
+| `APP_ENV`     | `development`      |Runtime environment  |
+| `DB_PATH`     | `./data/app.db`    | Database path       |
+
+# Run with hot reload
+docker run -it --rm \
+-p 8000:8000 \
+-v ./data:/app/data \
+-e DATABASE_URL=sqlite:////app/data/dev.db \
+-e APP_ENV=development \
+fastapi-dev
+
+
+Key Deployment Considerations
+
+Authentication & Security:
+
+All API endpoints require token authentication.
+
+Tokens are generated via POST /api/v1/tokens.
+
+Token validation is implemented in middleware (see server.py).
+
+Production Recommendations:
+
+bash
+# Set a strong secret for token generation  
+-e SECRET_KEY=your-strong-secret  
+Additional Notes:
+
+Store secrets securely using environment variables or secret management tools.
+
+Rotate tokens periodically for enhanced security.
+
+Restrict API access to authorized clients only.
+<!-- by [罗娟] -->
+
+<!-- by 班瑞莲 -->
+```sh
+docker build -it example .
+docker run --rm -it example
 REST API Documentation (v1.0)
 Category	          Endpoint	        Method	    Description	            Parameters	            Returns	
 System	            /hello	          GET	        Service health check	   -	            {"message": "Welcome to Package API"}	
